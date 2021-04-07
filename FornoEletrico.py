@@ -67,7 +67,6 @@ GPIO.setup(led250graus, GPIO.OUT)
 GPIO.setup(ledPower, GPIO.OUT)
 GPIO.setup(ledDesabilitado, GPIO.OUT)
 GPIO.setup(ledExaustao, GPIO.OUT)
-
 ''' Botoes
     GPIO 18 = Seleciona temperatura
     GPIO 16 = ON/OFF
@@ -128,8 +127,7 @@ while(1):
             GPIO.output(led90min, False)
             GPIO.output(ledDesabilitado, True)
             contador = 0
-            contadortempo = 0
-            
+            contadortempo = 0           
         if GPIO.input(botaoTemperatura) == True:
             contador = contador +1
             if (contador > 0 and contador < 4):
@@ -238,8 +236,7 @@ while(1):
                                     contadortempo = 0
                                     GPIO.output(led40graus, False)
                             GPIO.output(ledExaustao, False)
-                            break        
-                                                                                                                    
+                            break                                                                                                               
             if contadortempo == 2:              
                 if contador == 1:
                     t = time.time()
