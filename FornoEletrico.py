@@ -114,7 +114,6 @@ while(1):
             botaoControle = True
             GPIO.output(ledDesabilitado, True)
             GPIO.output(ledPower, True)
-
     if botaoControle == True:
         if contador != 0:
                 GPIO.output(ledDesabilitado, False)
