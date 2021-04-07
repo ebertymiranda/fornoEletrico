@@ -1,7 +1,7 @@
 from time import time
 import RPi.GPIO as GPIO
 import time
-import  math
+import math
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
