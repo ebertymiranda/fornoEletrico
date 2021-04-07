@@ -1,6 +1,7 @@
 from time import time
 import RPi.GPIO as GPIO
 import time
+import  math
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
@@ -203,7 +204,7 @@ while(1):
                             GPIO.output(led30min, False)
                             GPIO.output(led180graus, False)
                         if ((time.time() - t) > 10):     
-                            if ((int)(time.time() - t) % 2 == 0):
+                            if math.fmod((int)(time.time() - t),  2) == 0:
                                 GPIO.output(led40graus, True) 
                             else:
                                 GPIO.output(led40graus, False)                      
@@ -226,7 +227,7 @@ while(1):
                             t = time.time()
                             while (time.time() - t < tempoExaustao):
                                 if ((time.time() - t) > 0):     
-                                    if ((int)(time.time() - t) % 2 == 0):
+                                    if math.fmod((int)(time.time() - t),  2) == 0:
                                         GPIO.output(led40graus, True) 
                                     else:
                                         GPIO.output(led40graus, False)                      
@@ -261,7 +262,7 @@ while(1):
                             GPIO.output(led60min, False)
                             GPIO.output(led180graus, False)
                         if ((time.time() - t) > 10):     
-                            if ((int)(time.time() - t) % 2 == 0):
+                            if math.fmod((int)(time.time() - t),  2) == 0:
                                 GPIO.output(led40graus, True) 
                             else:
                                 GPIO.output(led40graus, False)                      
@@ -284,7 +285,7 @@ while(1):
                             t = time.time()
                             while (time.time() - t < tempoExaustao):
                                 if ((time.time() - t) > 0):     
-                                    if ((int)(time.time() - t) % 2 == 0):
+                                    if math.fmod((int)(time.time() - t),  2) == 0:
                                         GPIO.output(led40graus, True) 
                                     else:
                                         GPIO.output(led40graus, False)                      
@@ -318,7 +319,7 @@ while(1):
                             GPIO.output(led90min, False)
                             GPIO.output(led180graus, False)
                         if ((time.time() - t) > 10):     
-                            if ((int)(time.time() - t) % 2 == 0):
+                            if math.fmod((int)(time.time() - t),  2) == 0:
                                 GPIO.output(led40graus, True) 
                             else:
                                 GPIO.output(led40graus, False)                      
@@ -341,7 +342,7 @@ while(1):
                             t = time.time()
                             while (time.time() - t < tempoExaustao):
                                 if ((time.time() - t) > 0):     
-                                    if ((int)(time.time() - t) % 2 == 0):
+                                    if math.fmod((int)(time.time() - t),  2) == 0:
                                         GPIO.output(led40graus, True) 
                                     else:
                                         GPIO.output(led40graus, False)                      
@@ -375,7 +376,7 @@ while(1):
                             GPIO.output(led120min, False)
                             GPIO.output(led180graus, False)
                         if ((time.time() - t) > 10):     
-                            if ((int)(time.time() - t) % 2 == 0):
+                            if math.fmod((int)(time.time() - t),  2) == 0:
                                 GPIO.output(led40graus, True) 
                             else:
                                 GPIO.output(led40graus, False)                      
@@ -398,7 +399,7 @@ while(1):
                             t = time.time()
                             while (time.time() - t < tempoExaustao):
                                 if ((time.time() - t) > 0):     
-                                    if ((int)(time.time() - t) % 2 == 0):
+                                    if math.fmod((int)(time.time() - t),  2) == 0:
                                         GPIO.output(led40graus, True) 
                                     else:
                                         GPIO.output(led40graus, False)                      
@@ -432,7 +433,7 @@ while(1):
                             GPIO.output(led30min, False)
                             GPIO.output(led220graus, False)
                         if ((time.time() - t) > 10):     
-                            if ((int)(time.time() - t) % 2 == 0):
+                            if math.fmod((int)(time.time() - t),  2) == 0:
                                 GPIO.output(led40graus, True) 
                             else:
                                 GPIO.output(led40graus, False)                      
@@ -455,7 +456,7 @@ while(1):
                             t = time.time()
                             while (time.time() - t < tempoExaustao):
                                 if ((time.time() - t) > 0):     
-                                    if ((int)(time.time() - t) % 2 == 0):
+                                    if math.fmod((int)(time.time() - t),  2) == 0:
                                         GPIO.output(led40graus, True) 
                                     else:
                                         GPIO.output(led40graus, False)                      
@@ -489,7 +490,7 @@ while(1):
                             GPIO.output(led60min, False)
                             GPIO.output(led220graus, False)
                         if ((time.time() - t) > 10):     
-                            if ((int)(time.time() - t) % 2 == 0):
+                            if math.fmod((int)(time.time() - t),  2) == 0:
                                 GPIO.output(led40graus, True) 
                             else:
                                 GPIO.output(led40graus, False)                      
@@ -512,7 +513,7 @@ while(1):
                             t = time.time()
                             while (time.time() - t < tempoExaustao):
                                 if ((time.time() - t) > 0):     
-                                    if ((int)(time.time() - t) % 2 == 0):
+                                    if math.fmod((int)(time.time() - t),  2) == 0:
                                         GPIO.output(led40graus, True) 
                                     else:
                                         GPIO.output(led40graus, False)                      
@@ -546,7 +547,7 @@ while(1):
                             GPIO.output(led90min, False)
                             GPIO.output(led220graus, False)
                         if ((time.time() - t) > 10):     
-                            if ((int)(time.time() - t) % 2 == 0):
+                            if math.fmod((int)(time.time() - t),  2) == 0:
                                 GPIO.output(led40graus, True) 
                             else:
                                 GPIO.output(led40graus, False)                      
@@ -569,7 +570,7 @@ while(1):
                             t = time.time()
                             while (time.time() - t < tempoExaustao):
                                 if ((time.time() - t) > 0):     
-                                    if ((int)(time.time() - t) % 2 == 0):
+                                    if math.fmod((int)(time.time() - t),  2) == 0:
                                         GPIO.output(led40graus, True) 
                                     else:
                                         GPIO.output(led40graus, False)                      
@@ -603,7 +604,7 @@ while(1):
                             GPIO.output(led120min, False)
                             GPIO.output(led220graus, False)
                         if ((time.time() - t) > 10):     
-                            if ((int)(time.time() - t) % 2 == 0):
+                            if math.fmod((int)(time.time() - t),  2) == 0:
                                 GPIO.output(led40graus, True) 
                             else:
                                 GPIO.output(led40graus, False)                      
@@ -626,7 +627,7 @@ while(1):
                             t = time.time()
                             while (time.time() - t < tempoExaustao):
                                 if ((time.time() - t) > 0):     
-                                    if ((int)(time.time() - t) % 2 == 0):
+                                    if math.fmod((int)(time.time() - t),  2) == 0:
                                         GPIO.output(led40graus, True) 
                                     else:
                                         GPIO.output(led40graus, False)                      
@@ -660,7 +661,7 @@ while(1):
                             GPIO.output(led30min, False)
                             GPIO.output(led250graus, False)
                         if ((time.time() - t) > 10):     
-                            if ((int)(time.time() - t) % 2 == 0):
+                            if math.fmod((int)(time.time() - t),  2) == 0:
                                 GPIO.output(led40graus, True) 
                             else:
                                 GPIO.output(led40graus, False)                      
@@ -683,7 +684,7 @@ while(1):
                             t = time.time()
                             while (time.time() - t < tempoExaustao):
                                 if ((time.time() - t) > 0):     
-                                    if ((int)(time.time() - t) % 2 == 0):
+                                    if math.fmod((int)(time.time() - t),  2) == 0:
                                         GPIO.output(led40graus, True) 
                                     else:
                                         GPIO.output(led40graus, False)                      
@@ -717,7 +718,7 @@ while(1):
                             GPIO.output(led60min, False)
                             GPIO.output(led250graus, False)
                         if ((time.time() - t) > 10):     
-                            if ((int)(time.time() - t) % 2 == 0):
+                            if math.fmod((int)(time.time() - t),  2) == 0:
                                 GPIO.output(led40graus, True) 
                             else:
                                 GPIO.output(led40graus, False)                      
@@ -740,7 +741,7 @@ while(1):
                             t = time.time()
                             while (time.time() - t < tempoExaustao):
                                 if ((time.time() - t) > 0):     
-                                    if ((int)(time.time() - t) % 2 == 0):
+                                    if math.fmod((int)(time.time() - t),  2) == 0:
                                         GPIO.output(led40graus, True) 
                                     else:
                                         GPIO.output(led40graus, False)                      
@@ -774,7 +775,7 @@ while(1):
                             GPIO.output(led90min, False)
                             GPIO.output(led250graus, False)
                         if ((time.time() - t) > 10):     
-                            if ((int)(time.time() - t) % 2 == 0):
+                            if math.fmod((int)(time.time() - t),  2) == 0:
                                 GPIO.output(led40graus, True) 
                             else:
                                 GPIO.output(led40graus, False)                      
@@ -797,7 +798,7 @@ while(1):
                             t = time.time()
                             while (time.time() - t < tempoExaustao):
                                 if ((time.time() - t) > 0):     
-                                    if ((int)(time.time() - t) % 2 == 0):
+                                    if math.fmod((int)(time.time() - t),  2) == 0:
                                         GPIO.output(led40graus, True) 
                                     else:
                                         GPIO.output(led40graus, False)                      
@@ -831,7 +832,7 @@ while(1):
                             GPIO.output(led120min, False)
                             GPIO.output(led250graus, False)
                         if ((time.time() - t) > 10):     
-                            if ((int)(time.time() - t) % 2 == 0):
+                            if math.fmod((int)(time.time() - t),  2) == 0:
                                 GPIO.output(led40graus, True) 
                             else:
                                 GPIO.output(led40graus, False)                      
@@ -854,7 +855,7 @@ while(1):
                             t = time.time()
                             while (time.time() - t < tempoExaustao):
                                 if ((time.time() - t) > 0):     
-                                    if ((int)(time.time() - t) % 2 == 0):
+                                    if math.fmod((int)(time.time() - t),  2) == 0:
                                         GPIO.output(led40graus, True) 
                                     else:
                                         GPIO.output(led40graus, False)                      
