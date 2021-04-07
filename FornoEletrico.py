@@ -34,12 +34,13 @@ temperaturaAjustada = False
 confirmarTempo = False
 confirmaDesligado = False
 confirmaResfriamento = False
+confirmaDesabilita = False
 
-tempo1 = 7
-tempo2 = 12
-tempo3 = 17
-tempo4 = 22
-tempoExaustao = 7
+tempo1 = 40
+tempo2 = 60
+tempo3 = 80
+tempo4 = 100
+tempoExaustao = 5
 
 '''Setando leds
     GPIO 11 = temp 180
@@ -116,7 +117,6 @@ while(1):
             GPIO.output(ledPower, True)
 
     if botaoControle == True:
-        #print('Ligado')
         if contador != 0:
                 GPIO.output(ledDesabilitado, False)
         if GPIO.input(botaoDesabilita) == True:
@@ -180,23 +180,6 @@ while(1):
                     GPIO.output(led120min, False)          
                     print("Selecione o tempo desejado")
                     contadortempo = 0
-
-                    '''
-        if GPIO.input(botaoExaustor) == True:
-            confirmaResfriamento  = True
-        if confirmaResfriamento == True and confirmaDesligado == True:
-            confirmaDesligado = False
-            confirmaResfriamento = False
-            t = time.time()
-            while (time.time() - t < tempoExaustao):
-                if ((time.time() - t) > 0 and (time.time() - t) < 5):
-                    GPIO.output(ledExaustao, True)
-                    GPIO.output(led40graus, True)
-                if ((time.time() - t) > 5 and (time.time() - t) < 7):
-                    GPIO.output(led40graus, False)
-            GPIO.output(ledExaustao, False)
-            '''
-
         if GPIO.input(botaoConfirmar) == True:
             time.sleep(0.5)
             if contadortempo == 1:
@@ -217,16 +200,46 @@ while(1):
                             contadortempo = 0                                                     
                         if ((time.time() - t) > 0 and (time.time() - t) < 1):
                             GPIO.output(ledResistencia, True)
-                        if ((time.time() - t) > 1 and (time.time() - t) < 2):
-                            GPIO.output(led40graus, True)
-                        if ((time.time() - t) > 4.9 and (time.time() - t) < 5):
+                        if ((time.time() - t) > 29.9 and (time.time() - t) < 30):
                             GPIO.output(ledResistencia, False)
                             GPIO.output(led30min, False)
                             GPIO.output(led180graus, False)
-                        if ((time.time() - t) > 6.8):
-                            GPIO.output(led40graus, False)
+                        if ((time.time() - t) > 10):     
+                            if ((int)(time.time() - t) % 2 == 0):
+                                GPIO.output(led40graus, True) 
+                            else:
+                                GPIO.output(led40graus, False)                      
+                        if ((time.time() - t) > 39.8):
                             contador = 0
-                            contadortempo = 0                                                   
+                            contadortempo = 0
+                            GPIO.output(led40graus, False)
+                        if GPIO.input(botaoExaustor) == True:
+                            GPIO.output(led180graus, False)
+                            GPIO.output(led220graus, False)
+                            GPIO.output(led250graus, False)
+                            GPIO.output(led30min, False)
+                            GPIO.output(led60min, False)
+                            GPIO.output(led90min, False)
+                            GPIO.output(led120min, False)
+                            GPIO.output(ledResistencia, False)
+                            GPIO.output(ledDesabilitado, True)
+                            GPIO.output(ledExaustao, True)
+                            contador = 0
+                            contadortempo = 0 
+                            t = time.time()
+                            while (time.time() - t < tempoExaustao):
+                                if ((time.time() - t) > 0):     
+                                    if ((int)(time.time() - t) % 2 == 0):
+                                        GPIO.output(led40graus, True) 
+                                    else:
+                                        GPIO.output(led40graus, False)                      
+                                if ((time.time() - t) > 4.8):
+                                    contador = 0
+                                    contadortempo = 0
+                                    GPIO.output(led40graus, False)
+                            GPIO.output(ledExaustao, False)
+                            break        
+                                                                                                                    
             if contadortempo == 2:              
                 if contador == 1:
                     t = time.time()
@@ -245,16 +258,45 @@ while(1):
                             contadortempo = 0                                                     
                         if ((time.time() - t) > 0 and (time.time() - t) < 1):
                             GPIO.output(ledResistencia, True)
-                        if ((time.time() - t) > 1 and (time.time() - t) < 2):
-                            GPIO.output(led40graus, True)
-                        if ((time.time() - t) > 9.9 and (time.time() - t) < 10):
+                        if ((time.time() - t) > 49.9 and (time.time() - t) < 50):
                             GPIO.output(ledResistencia, False)
                             GPIO.output(led60min, False)
                             GPIO.output(led180graus, False)
-                        if ((time.time() - t) > 11.8):
-                            GPIO.output(led40graus, False)
+                        if ((time.time() - t) > 10):     
+                            if ((int)(time.time() - t) % 2 == 0):
+                                GPIO.output(led40graus, True) 
+                            else:
+                                GPIO.output(led40graus, False)                      
+                        if ((time.time() - t) > 59.8):
                             contador = 0
-                            contadortempo = 0              
+                            contadortempo = 0
+                            GPIO.output(led40graus, False)    
+                        if GPIO.input(botaoExaustor) == True:
+                            GPIO.output(led180graus, False)
+                            GPIO.output(led220graus, False)
+                            GPIO.output(led250graus, False)
+                            GPIO.output(led30min, False)
+                            GPIO.output(led60min, False)
+                            GPIO.output(led90min, False)
+                            GPIO.output(led120min, False)
+                            GPIO.output(ledResistencia, False)
+                            GPIO.output(ledDesabilitado, True)
+                            GPIO.output(ledExaustao, True)
+                            contador = 0
+                            contadortempo = 0 
+                            t = time.time()
+                            while (time.time() - t < tempoExaustao):
+                                if ((time.time() - t) > 0):     
+                                    if ((int)(time.time() - t) % 2 == 0):
+                                        GPIO.output(led40graus, True) 
+                                    else:
+                                        GPIO.output(led40graus, False)                      
+                                if ((time.time() - t) > 4.8):
+                                    contador = 0
+                                    contadortempo = 0
+                                    GPIO.output(led40graus, False)
+                            GPIO.output(ledExaustao, False)
+                            break                                
             if contadortempo == 3:
                 if contador == 1:
                     t = time.time()
@@ -273,16 +315,45 @@ while(1):
                             contadortempo = 0                          
                         if ((time.time() - t) > 0 and (time.time() - t) < 1):
                             GPIO.output(ledResistencia, True)
-                        if ((time.time() - t) > 1 and (time.time() - t) < 2):
-                            GPIO.output(led40graus, True)
-                        if ((time.time() - t) > 14.9 and (time.time() - t) < 15):
+                        if ((time.time() - t) > 69.9 and (time.time() - t) < 70):
                             GPIO.output(ledResistencia, False)
-                            GPIO.output(37, 0)
+                            GPIO.output(led90min, False)
                             GPIO.output(led180graus, False)
-                        if ((time.time() - t) > 16.8):
-                            GPIO.output(led40graus, False)
+                        if ((time.time() - t) > 10):     
+                            if ((int)(time.time() - t) % 2 == 0):
+                                GPIO.output(led40graus, True) 
+                            else:
+                                GPIO.output(led40graus, False)                      
+                        if ((time.time() - t) > 79.8):
                             contador = 0
                             contadortempo = 0
+                            GPIO.output(led40graus, False)
+                        if GPIO.input(botaoExaustor) == True:
+                            GPIO.output(led180graus, False)
+                            GPIO.output(led220graus, False)
+                            GPIO.output(led250graus, False)
+                            GPIO.output(led30min, False)
+                            GPIO.output(led60min, False)
+                            GPIO.output(led90min, False)
+                            GPIO.output(led120min, False)
+                            GPIO.output(ledResistencia, False)
+                            GPIO.output(ledDesabilitado, True)
+                            GPIO.output(ledExaustao, True)
+                            contador = 0
+                            contadortempo = 0 
+                            t = time.time()
+                            while (time.time() - t < tempoExaustao):
+                                if ((time.time() - t) > 0):     
+                                    if ((int)(time.time() - t) % 2 == 0):
+                                        GPIO.output(led40graus, True) 
+                                    else:
+                                        GPIO.output(led40graus, False)                      
+                                if ((time.time() - t) > 4.8):
+                                    contador = 0
+                                    contadortempo = 0
+                                    GPIO.output(led40graus, False)
+                            GPIO.output(ledExaustao, False)
+                            break               
             if contadortempo == 4:
                 if contador == 1:
                     t = time.time()
@@ -301,17 +372,45 @@ while(1):
                             contadortempo = 0                          
                         if ((time.time() - t) > 0 and (time.time() - t) < 1):
                             GPIO.output(ledResistencia, True)
-                        if ((time.time() - t) > 1 and (time.time() - t) < 2):
-                            GPIO.output(led40graus, True)
-                        if ((time.time() - t) > 19.9 and (time.time() - t) < 22):
+                        if ((time.time() - t) > 89.9 and (time.time() - t) < 90):
                             GPIO.output(ledResistencia, False)
                             GPIO.output(led120min, False)
                             GPIO.output(led180graus, False)
-                        if ((time.time() - t) > 21.8):
-                            GPIO.output(led40graus, False)
+                        if ((time.time() - t) > 10):     
+                            if ((int)(time.time() - t) % 2 == 0):
+                                GPIO.output(led40graus, True) 
+                            else:
+                                GPIO.output(led40graus, False)                      
+                        if ((time.time() - t) > 99.8):
                             contador = 0
                             contadortempo = 0
-
+                            GPIO.output(led40graus, False)
+                        if GPIO.input(botaoExaustor) == True:
+                            GPIO.output(led180graus, False)
+                            GPIO.output(led220graus, False)
+                            GPIO.output(led250graus, False)
+                            GPIO.output(led30min, False)
+                            GPIO.output(led60min, False)
+                            GPIO.output(led90min, False)
+                            GPIO.output(led120min, False)
+                            GPIO.output(ledResistencia, False)
+                            GPIO.output(ledDesabilitado, True)
+                            GPIO.output(ledExaustao, True)
+                            contador = 0
+                            contadortempo = 0 
+                            t = time.time()
+                            while (time.time() - t < tempoExaustao):
+                                if ((time.time() - t) > 0):     
+                                    if ((int)(time.time() - t) % 2 == 0):
+                                        GPIO.output(led40graus, True) 
+                                    else:
+                                        GPIO.output(led40graus, False)                      
+                                if ((time.time() - t) > 4.8):
+                                    contador = 0
+                                    contadortempo = 0
+                                    GPIO.output(led40graus, False)
+                            GPIO.output(ledExaustao, False)
+                            break               
             if contadortempo == 1:
                 if contador == 2:
                     t = time.time()
@@ -330,16 +429,45 @@ while(1):
                             contadortempo = 0                                                     
                         if ((time.time() - t) > 0 and (time.time() - t) < 1):
                             GPIO.output(ledResistencia, True)
-                        if ((time.time() - t) > 1 and (time.time() - t) < 2):
-                            GPIO.output(led40graus, True)
-                        if ((time.time() - t) > 4.9 and (time.time() - t) < 5):
+                        if ((time.time() - t) > 29.9 and (time.time() - t) < 30):
                             GPIO.output(ledResistencia, False)
                             GPIO.output(led30min, False)
                             GPIO.output(led220graus, False)
-                        if ((time.time() - t) > 6.8):
-                            GPIO.output(led40graus, False)
+                        if ((time.time() - t) > 10):     
+                            if ((int)(time.time() - t) % 2 == 0):
+                                GPIO.output(led40graus, True) 
+                            else:
+                                GPIO.output(led40graus, False)                      
+                        if ((time.time() - t) > 39.8):
                             contador = 0
-                            contadortempo = 0                                                   
+                            contadortempo = 0
+                            GPIO.output(led40graus, False)
+                        if GPIO.input(botaoExaustor) == True:
+                            GPIO.output(led180graus, False)
+                            GPIO.output(led220graus, False)
+                            GPIO.output(led250graus, False)
+                            GPIO.output(led30min, False)
+                            GPIO.output(led60min, False)
+                            GPIO.output(led90min, False)
+                            GPIO.output(led120min, False)
+                            GPIO.output(ledResistencia, False)
+                            GPIO.output(ledDesabilitado, True)
+                            GPIO.output(ledExaustao, True)
+                            contador = 0
+                            contadortempo = 0 
+                            t = time.time()
+                            while (time.time() - t < tempoExaustao):
+                                if ((time.time() - t) > 0):     
+                                    if ((int)(time.time() - t) % 2 == 0):
+                                        GPIO.output(led40graus, True) 
+                                    else:
+                                        GPIO.output(led40graus, False)                      
+                                if ((time.time() - t) > 4.8):
+                                    contador = 0
+                                    contadortempo = 0
+                                    GPIO.output(led40graus, False)
+                            GPIO.output(ledExaustao, False)
+                            break                                                            
             if contadortempo == 2:              
                 if contador == 2:
                     t = time.time()
@@ -358,16 +486,45 @@ while(1):
                             contadortempo = 0                                                     
                         if ((time.time() - t) > 0 and (time.time() - t) < 1):
                             GPIO.output(ledResistencia, True)
-                        if ((time.time() - t) > 1 and (time.time() - t) < 2):
-                            GPIO.output(led40graus, True)
-                        if ((time.time() - t) > 9.9 and (time.time() - t) < 10):
+                        if ((time.time() - t) > 49.9 and (time.time() - t) < 50):
                             GPIO.output(ledResistencia, False)
                             GPIO.output(led60min, False)
                             GPIO.output(led220graus, False)
-                        if ((time.time() - t) > 11.8):
-                            GPIO.output(led40graus, False)
+                        if ((time.time() - t) > 10):     
+                            if ((int)(time.time() - t) % 2 == 0):
+                                GPIO.output(led40graus, True) 
+                            else:
+                                GPIO.output(led40graus, False)                      
+                        if ((time.time() - t) > 59.8):
                             contador = 0
-                            contadortempo = 0              
+                            contadortempo = 0
+                            GPIO.output(led40graus, False)
+                        if GPIO.input(botaoExaustor) == True:
+                            GPIO.output(led180graus, False)
+                            GPIO.output(led220graus, False)
+                            GPIO.output(led250graus, False)
+                            GPIO.output(led30min, False)
+                            GPIO.output(led60min, False)
+                            GPIO.output(led90min, False)
+                            GPIO.output(led120min, False)
+                            GPIO.output(ledResistencia, False)
+                            GPIO.output(ledDesabilitado, True)
+                            GPIO.output(ledExaustao, True)
+                            contador = 0
+                            contadortempo = 0 
+                            t = time.time()
+                            while (time.time() - t < tempoExaustao):
+                                if ((time.time() - t) > 0):     
+                                    if ((int)(time.time() - t) % 2 == 0):
+                                        GPIO.output(led40graus, True) 
+                                    else:
+                                        GPIO.output(led40graus, False)                      
+                                if ((time.time() - t) > 4.8):
+                                    contador = 0
+                                    contadortempo = 0
+                                    GPIO.output(led40graus, False)
+                            GPIO.output(ledExaustao, False)
+                            break                         
             if contadortempo == 3:
                 if contador == 2:
                     t = time.time()
@@ -386,16 +543,45 @@ while(1):
                             contadortempo = 0                          
                         if ((time.time() - t) > 0 and (time.time() - t) < 1):
                             GPIO.output(ledResistencia, True)
-                        if ((time.time() - t) > 1 and (time.time() - t) < 2):
-                            GPIO.output(led40graus, True)
-                        if ((time.time() - t) > 14.9 and (time.time() - t) < 15):
+                        if ((time.time() - t) > 69.9 and (time.time() - t) < 70):
                             GPIO.output(ledResistencia, False)
-                            GPIO.output(37, 0)
+                            GPIO.output(led90min, False)
                             GPIO.output(led220graus, False)
-                        if ((time.time() - t) > 16.8):
-                            GPIO.output(led40graus, False)
+                        if ((time.time() - t) > 10):     
+                            if ((int)(time.time() - t) % 2 == 0):
+                                GPIO.output(led40graus, True) 
+                            else:
+                                GPIO.output(led40graus, False)                      
+                        if ((time.time() - t) > 79.8):
                             contador = 0
                             contadortempo = 0
+                            GPIO.output(led40graus, False)
+                        if GPIO.input(botaoExaustor) == True:
+                            GPIO.output(led180graus, False)
+                            GPIO.output(led220graus, False)
+                            GPIO.output(led250graus, False)
+                            GPIO.output(led30min, False)
+                            GPIO.output(led60min, False)
+                            GPIO.output(led90min, False)
+                            GPIO.output(led120min, False)
+                            GPIO.output(ledResistencia, False)
+                            GPIO.output(ledDesabilitado, True)
+                            GPIO.output(ledExaustao, True)
+                            contador = 0
+                            contadortempo = 0 
+                            t = time.time()
+                            while (time.time() - t < tempoExaustao):
+                                if ((time.time() - t) > 0):     
+                                    if ((int)(time.time() - t) % 2 == 0):
+                                        GPIO.output(led40graus, True) 
+                                    else:
+                                        GPIO.output(led40graus, False)                      
+                                if ((time.time() - t) > 4.8):
+                                    contador = 0
+                                    contadortempo = 0
+                                    GPIO.output(led40graus, False)
+                            GPIO.output(ledExaustao, False)
+                            break            
             if contadortempo == 4:
                 if contador == 2:
                     t = time.time()
@@ -414,17 +600,45 @@ while(1):
                             contadortempo = 0                          
                         if ((time.time() - t) > 0 and (time.time() - t) < 1):
                             GPIO.output(ledResistencia, True)
-                        if ((time.time() - t) > 1 and (time.time() - t) < 2):
-                            GPIO.output(led40graus, True)
-                        if ((time.time() - t) > 19.9 and (time.time() - t) < 22):
+                        if ((time.time() - t) > 89.9 and (time.time() - t) < 90):
                             GPIO.output(ledResistencia, False)
                             GPIO.output(led120min, False)
                             GPIO.output(led220graus, False)
-                        if ((time.time() - t) > 21.8):
-                            GPIO.output(led40graus, False)
+                        if ((time.time() - t) > 10):     
+                            if ((int)(time.time() - t) % 2 == 0):
+                                GPIO.output(led40graus, True) 
+                            else:
+                                GPIO.output(led40graus, False)                      
+                        if ((time.time() - t) > 99.8):
                             contador = 0
                             contadortempo = 0
-
+                            GPIO.output(led40graus, False)
+                        if GPIO.input(botaoExaustor) == True:
+                            GPIO.output(led180graus, False)
+                            GPIO.output(led220graus, False)
+                            GPIO.output(led250graus, False)
+                            GPIO.output(led30min, False)
+                            GPIO.output(led60min, False)
+                            GPIO.output(led90min, False)
+                            GPIO.output(led120min, False)
+                            GPIO.output(ledResistencia, False)
+                            GPIO.output(ledDesabilitado, True)
+                            GPIO.output(ledExaustao, True)
+                            contador = 0
+                            contadortempo = 0 
+                            t = time.time()
+                            while (time.time() - t < tempoExaustao):
+                                if ((time.time() - t) > 0):     
+                                    if ((int)(time.time() - t) % 2 == 0):
+                                        GPIO.output(led40graus, True) 
+                                    else:
+                                        GPIO.output(led40graus, False)                      
+                                if ((time.time() - t) > 4.8):
+                                    contador = 0
+                                    contadortempo = 0
+                                    GPIO.output(led40graus, False)
+                            GPIO.output(ledExaustao, False)
+                            break               
             if contadortempo == 1:
                 if contador == 3:
                     t = time.time()
@@ -443,16 +657,45 @@ while(1):
                             contadortempo = 0                                                     
                         if ((time.time() - t) > 0 and (time.time() - t) < 1):
                             GPIO.output(ledResistencia, True)
-                        if ((time.time() - t) > 1 and (time.time() - t) < 2):
-                            GPIO.output(led40graus, True)
-                        if ((time.time() - t) > 4.9 and (time.time() - t) < 5):
+                        if ((time.time() - t) > 29.9 and (time.time() - t) < 30):
                             GPIO.output(ledResistencia, False)
                             GPIO.output(led30min, False)
                             GPIO.output(led250graus, False)
-                        if ((time.time() - t) > 6.8):
-                            GPIO.output(led40graus, False)
+                        if ((time.time() - t) > 10):     
+                            if ((int)(time.time() - t) % 2 == 0):
+                                GPIO.output(led40graus, True) 
+                            else:
+                                GPIO.output(led40graus, False)                      
+                        if ((time.time() - t) > 39.8):
                             contador = 0
-                            contadortempo = 0                                                   
+                            contadortempo = 0
+                            GPIO.output(led40graus, False)
+                        if GPIO.input(botaoExaustor) == True:
+                            GPIO.output(led180graus, False)
+                            GPIO.output(led220graus, False)
+                            GPIO.output(led250graus, False)
+                            GPIO.output(led30min, False)
+                            GPIO.output(led60min, False)
+                            GPIO.output(led90min, False)
+                            GPIO.output(led120min, False)
+                            GPIO.output(ledResistencia, False)
+                            GPIO.output(ledDesabilitado, True)
+                            GPIO.output(ledExaustao, True)
+                            contador = 0
+                            contadortempo = 0 
+                            t = time.time()
+                            while (time.time() - t < tempoExaustao):
+                                if ((time.time() - t) > 0):     
+                                    if ((int)(time.time() - t) % 2 == 0):
+                                        GPIO.output(led40graus, True) 
+                                    else:
+                                        GPIO.output(led40graus, False)                      
+                                if ((time.time() - t) > 4.8):
+                                    contador = 0
+                                    contadortempo = 0
+                                    GPIO.output(led40graus, False)
+                            GPIO.output(ledExaustao, False)
+                            break                                                               
             if contadortempo == 2:              
                 if contador == 3:
                     t = time.time()
@@ -471,16 +714,45 @@ while(1):
                             contadortempo = 0                                                     
                         if ((time.time() - t) > 0 and (time.time() - t) < 1):
                             GPIO.output(ledResistencia, True)
-                        if ((time.time() - t) > 1 and (time.time() - t) < 2):
-                            GPIO.output(led40graus, True)
-                        if ((time.time() - t) > 9.9 and (time.time() - t) < 10):
+                        if ((time.time() - t) > 49.9 and (time.time() - t) < 50):
                             GPIO.output(ledResistencia, False)
                             GPIO.output(led60min, False)
                             GPIO.output(led250graus, False)
-                        if ((time.time() - t) > 11.8):
-                            GPIO.output(led40graus, False)
+                        if ((time.time() - t) > 10):     
+                            if ((int)(time.time() - t) % 2 == 0):
+                                GPIO.output(led40graus, True) 
+                            else:
+                                GPIO.output(led40graus, False)                      
+                        if ((time.time() - t) > 59.8):
                             contador = 0
-                            contadortempo = 0              
+                            contadortempo = 0
+                            GPIO.output(led40graus, False)
+                        if GPIO.input(botaoExaustor) == True:
+                            GPIO.output(led180graus, False)
+                            GPIO.output(led220graus, False)
+                            GPIO.output(led250graus, False)
+                            GPIO.output(led30min, False)
+                            GPIO.output(led60min, False)
+                            GPIO.output(led90min, False)
+                            GPIO.output(led120min, False)
+                            GPIO.output(ledResistencia, False)
+                            GPIO.output(ledDesabilitado, True)
+                            GPIO.output(ledExaustao, True)
+                            contador = 0
+                            contadortempo = 0 
+                            t = time.time()
+                            while (time.time() - t < tempoExaustao):
+                                if ((time.time() - t) > 0):     
+                                    if ((int)(time.time() - t) % 2 == 0):
+                                        GPIO.output(led40graus, True) 
+                                    else:
+                                        GPIO.output(led40graus, False)                      
+                                if ((time.time() - t) > 4.8):
+                                    contador = 0
+                                    contadortempo = 0
+                                    GPIO.output(led40graus, False)
+                            GPIO.output(ledExaustao, False)
+                            break                          
             if contadortempo == 3:
                 if contador == 3:
                     t = time.time()
@@ -499,16 +771,45 @@ while(1):
                             contadortempo = 0                          
                         if ((time.time() - t) > 0 and (time.time() - t) < 1):
                             GPIO.output(ledResistencia, True)
-                        if ((time.time() - t) > 1 and (time.time() - t) < 2):
-                            GPIO.output(led40graus, True)
-                        if ((time.time() - t) > 14.9 and (time.time() - t) < 15):
+                        if ((time.time() - t) > 69.9 and (time.time() - t) < 70):
                             GPIO.output(ledResistencia, False)
-                            GPIO.output(37, 0)
+                            GPIO.output(led90min, False)
                             GPIO.output(led250graus, False)
-                        if ((time.time() - t) > 16.8):
-                            GPIO.output(led40graus, False)
+                        if ((time.time() - t) > 10):     
+                            if ((int)(time.time() - t) % 2 == 0):
+                                GPIO.output(led40graus, True) 
+                            else:
+                                GPIO.output(led40graus, False)                      
+                        if ((time.time() - t) > 79.8):
                             contador = 0
                             contadortempo = 0
+                            GPIO.output(led40graus, False)
+                        if GPIO.input(botaoExaustor) == True:
+                            GPIO.output(led180graus, False)
+                            GPIO.output(led220graus, False)
+                            GPIO.output(led250graus, False)
+                            GPIO.output(led30min, False)
+                            GPIO.output(led60min, False)
+                            GPIO.output(led90min, False)
+                            GPIO.output(led120min, False)
+                            GPIO.output(ledResistencia, False)
+                            GPIO.output(ledDesabilitado, True)
+                            GPIO.output(ledExaustao, True)
+                            contador = 0
+                            contadortempo = 0 
+                            t = time.time()
+                            while (time.time() - t < tempoExaustao):
+                                if ((time.time() - t) > 0):     
+                                    if ((int)(time.time() - t) % 2 == 0):
+                                        GPIO.output(led40graus, True) 
+                                    else:
+                                        GPIO.output(led40graus, False)                      
+                                if ((time.time() - t) > 4.8):
+                                    contador = 0
+                                    contadortempo = 0
+                                    GPIO.output(led40graus, False)
+                            GPIO.output(ledExaustao, False)
+                            break            
             if contadortempo == 4:
                 if contador == 3:
                     t = time.time()
@@ -527,18 +828,44 @@ while(1):
                             contadortempo = 0                          
                         if ((time.time() - t) > 0 and (time.time() - t) < 1):
                             GPIO.output(ledResistencia, True)
-                        if ((time.time() - t) > 1 and (time.time() - t) < 2):
-                            GPIO.output(led40graus, True)
-                        if ((time.time() - t) > 19.9 and (time.time() - t) < 22):
+                        if ((time.time() - t) > 89.9 and (time.time() - t) < 90):
                             GPIO.output(ledResistencia, False)
                             GPIO.output(led120min, False)
                             GPIO.output(led250graus, False)
-                        if ((time.time() - t) > 21.8):
-                            GPIO.output(led40graus, False)
+                        if ((time.time() - t) > 10):     
+                            if ((int)(time.time() - t) % 2 == 0):
+                                GPIO.output(led40graus, True) 
+                            else:
+                                GPIO.output(led40graus, False)                      
+                        if ((time.time() - t) > 99.8):
                             contador = 0
-                            contadortempo = 0                                             
+                            contadortempo = 0
+                            GPIO.output(led40graus, False)
+                        if GPIO.input(botaoExaustor) == True:
+                            GPIO.output(led180graus, False)
+                            GPIO.output(led220graus, False)
+                            GPIO.output(led250graus, False)
+                            GPIO.output(led30min, False)
+                            GPIO.output(led60min, False)
+                            GPIO.output(led90min, False)
+                            GPIO.output(led120min, False)
+                            GPIO.output(ledResistencia, False)
+                            GPIO.output(ledDesabilitado, True)
+                            GPIO.output(ledExaustao, True)
+                            contador = 0
+                            contadortempo = 0 
+                            t = time.time()
+                            while (time.time() - t < tempoExaustao):
+                                if ((time.time() - t) > 0):     
+                                    if ((int)(time.time() - t) % 2 == 0):
+                                        GPIO.output(led40graus, True) 
+                                    else:
+                                        GPIO.output(led40graus, False)                      
+                                if ((time.time() - t) > 4.8):
+                                    contador = 0
+                                    contadortempo = 0
+                                    GPIO.output(led40graus, False)
+                            GPIO.output(ledExaustao, False)
+                            break                                                        
     else:
         confirmaDesligado = True
-
-
-    
