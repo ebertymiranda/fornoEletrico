@@ -237,8 +237,7 @@ while(1):
                                     GPIO.output(led40graus, False)
                             GPIO.output(ledExaustao, False)
                             GPIO.output(ledDesabilitado, True)
-                            break        
-                                                                                                                    
+                            break                                                                                                                       
             if contadortempo == 2:              
                 if contador == 1:
                     t = time.time()
